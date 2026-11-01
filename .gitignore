@@ -1,0 +1,21 @@
+# build artifacts (regenerate with `make`)
+build/
+bin/
+
+# python cache
+__pycache__/
+*.pyc
+
+# node
+node_modules/
+
+# upstream reference: 3rd-party code + a binary that POSTs to an external URL — do NOT publish
+upstream/
+
+# copyrighted IEEE paper — keep local, do not publish
+CODAX.pdf
+
+# transient run output (keep data/trials/ results, drop logs & single-run scratch)
+data/*.jsonl
+data/*.log
+data/*.txt

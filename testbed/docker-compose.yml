@@ -1,0 +1,26 @@
+# 3 containers matching the paper (Sec. VII-A): 200 MB RAM, 2 CPUs each, ports 8001-8003.
+# Ports publish on 0.0.0.0, so the Kali VM reaches them at 192.168.56.102:800x (host-only net).
+# container_name is fixed so we can resolve cgroup -> container name in the analysis step.
+services:
+  redos:
+    build: ./redos
+    container_name: codax_redos
+    ports: ["8001:8001"]
+    # 512m (paper uses 200m): we run 8 gunicorn worker processes to host many concurrent
+    # ReDoS attacks faithfully; 200m would OOM-kill them. Noted as a deviation in the report.
+    mem_limit: 512m
+    cpus: 2.0
+
+  inloop:
+    build: ./inloop
+    container_name: codax_inloop
+    ports: ["8002:8002"]
+    mem_limit: 200m
+    cpus: 2.0
+
+  baseline:
+    build: ./baseline
+    container_name: codax_baseline
+    ports: ["8003:8003"]
+    mem_limit: 200m
+    cpus: 2.0
